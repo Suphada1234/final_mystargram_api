@@ -4,10 +4,11 @@ import { faHeart,faComment,faShare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-const unsplash = new Unsplash({
-    accessKey: "6rKVEZd1gWGlA8FLgveFQZFC7sOucq0rpGK9hqf1W-4",
-});
-export default function SearchPhotos() {
+
+const  SearchPhotos = () => {
+    const unsplash = new Unsplash({
+        accessKey: "6rKVEZd1gWGlA8FLgveFQZFC7sOucq0rpGK9hqf1W-4",
+    });
 
     const [query, setQuery] = useState("");
     const [pics, setPics] = useState([]);
@@ -89,3 +90,5 @@ export default function SearchPhotos() {
         </>
     );
 }
+
+export default SearchPhotos;
