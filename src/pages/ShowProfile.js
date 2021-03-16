@@ -1,12 +1,13 @@
 import React from "react";
-import UserProfileFrom from "../component/UserProfileFrom";
+import Profile from "../component/UserProfileFrom";
 import PhotoList from "../component/PhotoListFrom";
+
 
 const ShowProfile = (props) => {
     return (
         <main>
-            <UserProfileFrom id={props.match.params.id} />
-            <PhotoList id={props.match.params.id} />
+            <Profile username={props.match.params.username} /> {/**ส่ง username ไปยัง profile */}
+            <PhotoList username={props.match.params.username}/>{/**ส่ง username ไปยัง PhotoList */}
         </main>
     );
 };

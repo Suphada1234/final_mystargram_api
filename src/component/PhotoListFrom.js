@@ -1,38 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import Unsplash, { toJson } from "unsplash-js";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+/*import { faHeart,faComment,faShare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";*/
 
-const PhotoList = ({ id }) => {
-    const unsplash = new Unsplash({
-        accessKey: "6rKVEZd1gWGlA8FLgveFQZFC7sOucq0rpGK9hqf1W-4",
-    });
-    const [photolist, setPhotolist] = useState([]);
+const UserProfileFrom = ({ username }) => {
 
+    //key จาก unspash
+    const accessKey = "6rKVEZd1gWGlA8FLgveFQZFC7sOucq0rpGK9hqf1W-4"  
+    //เรียก api ด้วย username 
+    const apiuser = "https://api.unsplash.com/users/" + username + "/photos?page=1&query=&per_page=15&client_id=" + accessKey;
+
+
+    const [pics, setPics] = useState([]);
     useEffect(() => {
-        unsplash.users
-            .profile(photolist)
-            .then(toJson)
-            .then((json) => {
-                setPhotolist(json.results);
-            });
-    }, [id]);
-
+        axios.get(apiuser).then((response) => {
+            console.log(response);
+            setPics(response.data);
+        });
+    }, [username])
     return (
-        <div>
-            {photolist.map(photo =>
-                <div class="gallery-item" tabindex="0">
-
-                    <img src="${photo.urls.raw}" class="gallery-image" alt=""></img>
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span> Likes: </span>${photo.likes} </li>
-                        </ul>
-                    </div>
-
-                </div>
-            )};
-        </div>
-
-    )
-
+        <form>
+            <div className="row">
+                {pics.map(pics => (
+                    <div key={pics.id}>
+                        <section className="photo">
+                            <div className="card-list" tabindex="0">
+                                <img src={pics.urls.small} className="gallery-image" alt=""></img>
+                            </div>
+                        </section>
+                    </div >
+                ))}
+            </div>
+        </form >
+    );
 }
-export default PhotoList;
+export default UserProfileFrom;
